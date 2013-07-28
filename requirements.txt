@@ -1,0 +1,17 @@
+Flask==0.10.1
+-e git+https://github.com/jfinkels/flask-restless.git@227028e34cbbfe338e29bc29d2f374ad0841115f#egg=Flask_Restless-dev
+Flask-SQLAlchemy==1.0
+Flask-Testing==0.4
+Jinja2==2.7
+MarkupSafe==0.18
+SQLAlchemy==0.8.2
+Werkzeug==0.9.3
+ipdb==0.7
+ipython==0.13.2
+itsdangerous==0.22
+nose==1.3.0
+python-dateutil==2.1
+readline==6.2.4.1
+six==1.3.0
+twill==0.9
+wsgiref==0.1.2

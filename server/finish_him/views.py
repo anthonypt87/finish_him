@@ -1,20 +1,13 @@
-from finish_him import app
-from flask import jsonify
+from flask.ext.restless import APIManager
 
 import models
+from finish_him import app
+from finish_him import db
 
+manager = APIManager(app, flask_sqlalchemy_db=db)
 
-@app.route('/')
-def get_book():
-	books = models.Book.query.all()
-	json_books = _convert_books_to_json(books)
-	return jsonify(books=json_books)
-
-def _convert_books_to_json(books):
-	return [
-		{
-			'title': book.title,
-			'author': book.author,
-			'description': book.description,
-		} for book in books
-	]
+manager.create_api(
+	models.Book,
+	methods=['GET', 'POST', 'DELETE', 'PUT'],
+	results_per_page=20
+)

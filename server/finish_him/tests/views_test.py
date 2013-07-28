@@ -1,11 +1,11 @@
+import flask
 from flask.ext.testing import TestCase
 
 from finish_him import app
 from finish_him import db
-from finish_him import models
 
 
-class GetBooksTest(TestCase):
+class BooksTest(TestCase):
 
 	def create_app(self):
 		app.config['TESTING'] = True
@@ -23,17 +23,22 @@ class GetBooksTest(TestCase):
 		self._get_books_and_verify_output_books([])
 
 	def _get_books_and_verify_output_books(self, expected_books):
-		response = self.client.get('/')
-		self.assertEquals(response.json, {'books': expected_books})
+		response = self.client.get('/api/book')
+		books_output = response.json['objects']
+		self.assertEquals(books_output, expected_books)
 
-	def test_get_books_when_books_exist(self):
+	def test_create_and_get_books(self):
 		book_info = {
 			'title': 'title',
 			'author': 'author',
 			'description': 'description'
 		}
-		book = models.Book(**book_info)
-		db.session.add(book)
-		db.session.commit()
+		response = self.client.post(
+			'/api/book',
+			data=flask.json.dumps(book_info),
+			content_type='application/json'
+		)
 
-		self._get_books_and_verify_output_books([book_info])
+		expected_book_info = book_info.copy()
+		expected_book_info['id'] = response.json['id']
+		self._get_books_and_verify_output_books([expected_book_info])
