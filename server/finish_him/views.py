@@ -9,5 +9,12 @@ manager = APIManager(app, flask_sqlalchemy_db=db)
 manager.create_api(
 	models.Book,
 	methods=['GET', 'POST', 'DELETE', 'PUT'],
-	results_per_page=20
+	results_per_page=20,
+	exclude_columns=['user_books']
+)
+
+manager.create_api(
+	models.User,
+	methods=['GET', 'POST'],
+	results_per_page=20,
 )
