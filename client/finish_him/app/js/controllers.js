@@ -2,10 +2,9 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', []).
+angular.module('finishHim.controllers', []).
   controller('MyCtrl1', [function() {
 
-  }])
-  .controller('MyCtrl2', [function() {
+  }]).controller('MyCtrl2', [function() {
 
   }]);
