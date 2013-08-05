@@ -50,36 +50,43 @@ class BookTestCase(IntegrationTestCase):
 
 class UserTestCase(IntegrationTestCase):
 
-	def test_get_books_for_user(self):
-		user = models.User(
+	def setUp(self):
+		super(UserTestCase, self).setUp()
+		self.user = models.User(
 			email='email@finish_him.com',
 			first_name='First',
 			last_name='Last'
 		)
-		book = models.Book(
+		self.book = models.Book(
 			title='title',
 			author='author',
 			description='description'
 		)
-		user_book = models.UserBook(book=book)
-		user.user_books.append(user_book)
-		db.session.add(user)
+		user_book = models.UserBook(book=self.book)
+		self.user.user_books.append(user_book)
+		db.session.add(self.user)
 		db.session.commit()
 
-		response = self.client.get('/api/user/%s' % user.id)
+
+	def test_get_books_for_user(self):
+		response = self.client.get('/api/user/%s' % self.user.id)
 
 		self.assertEquals(
 			response.json,
 			{
-				'id': user.id,
-				'email': user.email,
-				'first_name': user.first_name,
-				'last_name': user.last_name,
+				'id': self.user.id,
+				'email': self.user.email,
+				'first_name': self.user.first_name,
+				'last_name': self.user.last_name,
 				'user_books': [
 					{
-						'book_id': book.id,
-						'user_id': user.id,
+						'book_id': self.book.id,
+						'user_id': self.user.id,
 					}
 				]
 			}
 		)
+
+	def test_get_all_users(self):
+		response = self.client.get('/api/user')
+		self.assertEquals(len(response.json['objects']), 1)

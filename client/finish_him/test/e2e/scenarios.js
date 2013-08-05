@@ -12,7 +12,7 @@ describe('finishHim', function() {
 		expect(browser().location().url()).toBe('/users');
 	});
 
-  describe('view1', function() {
+  describe('users', function() {
 
     beforeEach(function() {
       browser().navigateTo('#/users');
@@ -23,6 +23,5 @@ describe('finishHim', function() {
       expect(element('[ng-view] h2:first').text()).
         toMatch(/Users/);
     });
-
   });
 });
