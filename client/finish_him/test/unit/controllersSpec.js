@@ -4,15 +4,16 @@
 
 describe('controllers', function(){
 	var scope, ctrl, $httpBackend;
+	var mock_user = {
+		'first_name': 'First',
+		'last_name': 'Last',
+		'email': 'email@finish_him.com',
+		'id': 1
+	};
 
 	var mock_user_result = {
 		'objects': [
-			{
-				'first_name': 'First',
-				'last_name': 'Last',
-				'email': 'email@finish_him.com',
-				'id': 1
-			}
+				mock_user
 		]
 	};
 
@@ -25,11 +26,12 @@ describe('controllers', function(){
 
 		scope = $rootScope.$new();
 		ctrl = $controller('Users', {'$scope' : scope});
+		$httpBackend.flush();
 	}));
 
 
   it('should render users when getting a user from the server', function() {
-    expect(scope.users).toEqual([{'first_name': 'First', 'last_name': 'Last'}]);
+    expect(scope.users).toEqual([mock_user]);
   });
 
   it('should ....', inject(function() {
