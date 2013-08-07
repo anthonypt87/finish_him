@@ -33,8 +33,4 @@ describe('controllers', function(){
   it('should render users when getting a user from the server', function() {
     expect(scope.users).toEqual([mock_user]);
   });
-
-  it('should ....', inject(function() {
-    //spec body
-  }));
 });
