@@ -5,12 +5,12 @@
 describe('finishHim', function() {
 
   beforeEach(function() {
-    browser().navigateTo('../../app/index.html');
+    browser().navigateTo('../../app/index-test.html');
   });
 
-	it('should automatically redirect to /users', function() {
-		expect(browser().location().url()).toBe('/users');
-	});
+  it('should automatically redirect to /users', function() {
+    expect(browser().location().url()).toBe('/users');
+  });
 
   describe('users', function() {
 
@@ -22,6 +22,7 @@ describe('finishHim', function() {
     it('should render "users" when user navigates to /users', function() {
       expect(element('[ng-view] h2:first').text()).
         toMatch(/Users/);
+      expect(repeater('li').count()).toEqual(15);
     });
   });
 });
