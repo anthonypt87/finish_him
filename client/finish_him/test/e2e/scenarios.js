@@ -5,7 +5,7 @@
 describe('finishHim', function() {
 
   beforeEach(function() {
-    browser().navigateTo('../../app/index-test.html');
+    browser().navigateTo('index-test.html');
   });
 
   it('should automatically redirect to /users', function() {

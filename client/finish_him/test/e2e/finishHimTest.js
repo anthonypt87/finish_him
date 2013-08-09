@@ -20,6 +20,6 @@ angular.module('finishHimTest', ['finishHim', 'ngMockE2E']).run(function($httpBa
   var mock_users = {
     'objects': common.fillArray(mock_user, 15)
   };
-  $httpBackend.whenGET('api/users').respond(mock_users); 
+  $httpBackend.whenGET('api/user').respond(mock_users); 
   $httpBackend.whenGET(/partials/).passThrough();
 });
