@@ -1,9 +1,12 @@
+import os
+
 import flask
 from flask.ext.restless import APIManager
 
 import models
 from finish_him import app
 from finish_him import db
+from finish_him import static_folder_path
 
 manager = APIManager(app, flask_sqlalchemy_db=db)
 
@@ -22,4 +25,5 @@ manager.create_api(
 
 @app.route('/')
 def index():
-	return flask.send_file('../../client/finish_him/app/index.html')
+	index_file_path = os.path.join(static_folder_path, 'index.html')
+	return flask.send_file(index_file_path)
