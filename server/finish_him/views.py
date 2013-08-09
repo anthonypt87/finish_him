@@ -1,3 +1,4 @@
+import flask
 from flask.ext.restless import APIManager
 
 import models
@@ -18,3 +19,7 @@ manager.create_api(
 	methods=['GET', 'POST'],
 	results_per_page=20,
 )
+
+@app.route('/')
+def index():
+	return flask.send_file('../../client/finish_him/app/index.html')
