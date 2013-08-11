@@ -32,8 +32,8 @@ describe('finishHim', function() {
       browser().navigateTo('#/user/1');
     });
     it('should render the users information and books', function() {
-      expect(element('[ng-view] .book_info').text()).
-        toMatch(/Title: Title/);
+      expect(element('[ng-view] .user_info').text()).
+        toMatch(/First Last/);
     });
   });
 });

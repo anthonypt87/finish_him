@@ -1,7 +1,9 @@
 <h2>Users</h2>
 <ul>
   <li ng-repeat="user in users">
-    {{user.first_name}} {{user.last_name}}
+    <a href="#/user/{{user.id}}">
+      {{user.first_name}} {{user.last_name}}
+    </a>
   </li>
 </ul>
 
