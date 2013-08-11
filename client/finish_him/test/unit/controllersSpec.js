@@ -3,7 +3,7 @@
 /* jasmine specs for controllers go here */
 
 describe('controllers', function(){
-  var scope, ctrl, $httpBackend;
+  var scope;
   var mock_user = {
     'first_name': 'First',
     'last_name': 'Last',
@@ -21,6 +21,18 @@ describe('controllers', function(){
     ]
   };
 
+  function construct_controller(controllerName, httpBackendMockerFunction, routeParamsMockerFunction) {
+    return inject(function($httpBackend, $rootScope, $controller, $routeParams) {
+      httpBackendMockerFunction($httpBackend);
+      if (routeParamsMockerFunction !== undefined) {
+        routeParamsMockerFunction($routeParams);
+      }
+      scope = $rootScope.$new();
+      var ctrl = $controller(controllerName, {'$scope' : scope});
+      $httpBackend.flush();
+    });
+  }
+
   beforeEach(module('finishHim'));
   beforeEach(function(){
     this.addMatchers({
@@ -30,33 +42,28 @@ describe('controllers', function(){
     });
   });
 
-  function construct_controller(controllerName, httpBackendMockerFunction) {
-    return inject(function(_$httpBackend_, $rootScope, $controller) {
-      $httpBackend = _$httpBackend_;
-      httpBackendMockerFunction($httpBackend);
-      scope = $rootScope.$new();
-      ctrl = $controller(controllerName, {'$scope' : scope});
-      $httpBackend.flush();
-    });
-  }
-
   describe('Users', function(){
-    beforeEach(construct_controller('Users', function(_$httpBackend_){
-      _$httpBackend_.expectGET('api/user').respond(
+    beforeEach(construct_controller('Users', function($httpBackend){
+      $httpBackend.expectGET('api/user').respond(
         mock_users
       );
     }));
+
     it('should render users when getting a user from the server', function() {
       expect(scope.users).toEqualData([mock_user]);
     });
   });
 
   describe('User', function(){
-    beforeEach(construct_controller('User', function(_$httpBackend_){
-      _$httpBackend_.expectGET('api/user/1').respond(
-        mock_user
-      );
-    }));
+    beforeEach(construct_controller('User', 
+      function($httpBackend){
+        $httpBackend.expectGET('api/user/1').respond(mock_user);
+      },
+      function($routeParams){
+        $routeParams.user_id = 1;
+      }
+    ));
+
     it('should render user with books', function() {
       expect(scope.user).toEqualData(mock_user);
     });
