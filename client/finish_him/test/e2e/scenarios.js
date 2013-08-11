@@ -25,4 +25,15 @@ describe('finishHim', function() {
       expect(repeater('li').count()).toEqual(15);
     });
   });
+
+  describe('user', function() {
+
+    beforeEach(function() {
+      browser().navigateTo('#/user/1');
+    });
+    it('should render the users information and books', function() {
+      expect(element('[ng-view] .book_info').text()).
+        toMatch(/Title: Title/);
+    });
+  });
 });

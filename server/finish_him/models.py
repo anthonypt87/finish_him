@@ -6,6 +6,7 @@ class Book(db.Model):
 	__tablename__ = 'book'
 
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	isbn = db.Column(db.String)
 	title = db.Column(db.String)
 	author = db.Column(db.String)
 	description = db.Column(db.BLOB)

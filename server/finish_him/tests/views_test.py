@@ -35,7 +35,8 @@ class BookTestCase(IntegrationTestCase):
 		book_info = {
 			'title': 'title',
 			'author': 'author',
-			'description': 'description'
+			'description': 'description',
+			'isbn': 'isbn'
 		}
 		response = self.client.post(
 			'/api/book',
