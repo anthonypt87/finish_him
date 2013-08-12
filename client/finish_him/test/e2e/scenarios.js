@@ -34,6 +34,7 @@ describe('finishHim', function() {
     it('should render the users information and books', function() {
       expect(element('[ng-view] .user_info').text()).
         toMatch(/First Last/);
+      expect(repeater('.book_info').count()).toEqual(1);
     });
   });
 });

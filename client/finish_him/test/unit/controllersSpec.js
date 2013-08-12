@@ -15,13 +15,21 @@ describe('controllers', function(){
     }]
   };
 
+  var mock_book = {
+    'title': 'Title',
+    'id': 2,
+    'author': 'Author',
+    'description': 'Description',
+    'isbn': 'isbn'
+  }
+
   var mock_users = {
     'objects': [
         mock_user
     ]
   };
 
-  function construct_controller(controllerName, httpBackendMockerFunction, routeParamsMockerFunction) {
+  var construct_controller = function(controllerName, httpBackendMockerFunction, routeParamsMockerFunction) {
     return inject(function($httpBackend, $rootScope, $controller, $routeParams) {
       httpBackendMockerFunction($httpBackend);
       if (routeParamsMockerFunction !== undefined) {
@@ -58,6 +66,7 @@ describe('controllers', function(){
     beforeEach(construct_controller('UserCtrl', 
       function($httpBackend){
         $httpBackend.expectGET('api/user/1').respond(mock_user);
+        $httpBackend.expectGET('api/book/2').respond(mock_book);
       },
       function($routeParams){
         $routeParams.user_id = 1;
@@ -66,6 +75,7 @@ describe('controllers', function(){
 
     it('should render user with books', function() {
       expect(scope.user).toEqualData(mock_user);
+      expect(scope.books).toEqualData([mock_book]);
     });
   });
 });
