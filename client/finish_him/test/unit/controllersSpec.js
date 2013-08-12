@@ -42,8 +42,8 @@ describe('controllers', function(){
     });
   });
 
-  describe('Users', function(){
-    beforeEach(construct_controller('Users', function($httpBackend){
+  describe('UsersCtrl', function(){
+    beforeEach(construct_controller('UsersCtrl', function($httpBackend){
       $httpBackend.expectGET('api/user').respond(
         mock_users
       );
@@ -54,8 +54,8 @@ describe('controllers', function(){
     });
   });
 
-  describe('User', function(){
-    beforeEach(construct_controller('User', 
+  describe('UserCtrl', function(){
+    beforeEach(construct_controller('UserCtrl', 
       function($httpBackend){
         $httpBackend.expectGET('api/user/1').respond(mock_user);
       },
